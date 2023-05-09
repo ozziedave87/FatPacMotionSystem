@@ -108,13 +108,13 @@ if __name__ == "__main__":
     try:
         #initialise motor 1
         StepperSauce = bipolarStepper(17, 18, 19, 20, 10, 200)
-        StepperSauce.rotate(100)
+        StepperSauce.rotate(180)
         sleep(2)
-        StepperSauce.rotate(-100)
+        StepperSauce.rotate(-180)
         sleep(2)
-        StepperSauce.rotate(100)
+        StepperSauce.rotate(360)
         sleep(2)
-        StepperSauce.rotate(-100)
+        StepperSauce.rotate(-360)
         sleep(2)
 
 

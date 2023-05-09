@@ -7,7 +7,7 @@ from time import sleep
 
 GPIO.setmode(GPIO.BCM)
 
-class motor:
+class stepper:
     def __init__(self, dir_a_pin, pwm_a_pin, dir_b_pin, pwm_b_pin):
         self.dir_a_pin = dir_a_pin
         self.pwm_a_pin = pwm_a_pin

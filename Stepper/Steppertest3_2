@@ -43,10 +43,10 @@ while True:
     try:
         if motor_direction == 'c':
             print('Motor running clockwise\n')
-            rotate_motor('c', 360)  # Rotate 360 degrees clockwise
+            rotate_motor('c', 180)  # Rotate 360 degrees clockwise
         elif motor_direction == 'a':
             print('Motor running anticlockwise\n')
-            rotate_motor('a', 360)  # Rotate 360 degrees anticlockwise
+            rotate_motor('a', 180)  # Rotate 360 degrees anticlockwise
 
         # press ctrl+c for keyboard interrupt
     except KeyboardInterrupt:

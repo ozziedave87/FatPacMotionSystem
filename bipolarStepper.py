@@ -8,7 +8,7 @@ from time import sleep
 GPIO.setmode(GPIO.BCM)
 
 class bipolarStepper:
-    def __init__(self, pwmPinA=17, dirPinA=18, pwmPinB=19, dirPinB=20, RPM=10, stepsPerRotation=200):
+    def __init__(self, pwmPinA, dirPinA, pwmPinB, dirPinB, RPM=10, stepsPerRotation=200):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(pwmPinA, GPIO.OUT)
         GPIO.setup(pwmPinB, GPIO.OUT)
@@ -43,10 +43,10 @@ class bipolarStepper:
     def returnHome(self):
         while self.steps > 0:
             self.backwardStep()
-            time.sleep(self.stepDelay_ms / 1000)
+            sleep(self.stepDelay_ms / 1000)
         while self.steps < 0:
             self.forwardStep()
-            time.sleep(self.stepDelay_ms / 1000)
+            sleep(self.stepDelay_ms / 1000)
 
     def getSteps(self):
         return self.steps
@@ -92,12 +92,12 @@ class bipolarStepper:
             while steps < 0:
                 self.backwardStep()
                 steps += 1
-                time.sleep(self.stepDelay_ms / 1000)
+                sleep(self.stepDelay_ms / 1000)
         else:
             while steps > 0:
                 self.forwardStep()
                 steps -= 1
-                time.sleep(self.stepDelay_ms / 1000)
+                sleep(self.stepDelay_ms / 1000)
 
     def __del__(self):
         self.pwmA.stop()

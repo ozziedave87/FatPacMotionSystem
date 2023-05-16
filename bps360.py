@@ -87,3 +87,5 @@ if __name__ == "__main__":
         print("Keyboard interrupt")
     finally:
         stepper.stop()
+        GPIO.cleanup()
+        

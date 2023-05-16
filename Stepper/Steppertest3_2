@@ -1,0 +1,58 @@
+import RPi.GPIO as GPIO
+from time import sleep
+import sys
+
+DirA = 12  # blue PwmA
+PwmA = 16  # red DirA
+DirB = 21  # green PwmB
+PwmB = 20  # black DirB
+
+ts = 0.001  # smoothest tested
+
+# assign GPIO pins for motor
+motor_channel = (DirA, PwmA, DirB, PwmB)
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+# for defining more than 1 GPIO channel as input/output use
+GPIO.setup(motor_channel, GPIO.OUT)
+
+def rotate_motor(direction, degrees):
+    steps = int(degrees / 1.8)  # Convert degrees to steps (assuming 1.8° per step)
+    for _ in range(steps):
+        if direction == 'c':  # clockwise
+            GPIO.output(motor_channel, (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
+            sleep(ts)
+        elif direction == 'a':  # anticlockwise
+            GPIO.output(motor_channel, (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
+            sleep(ts)
+            GPIO.output(motor_channel, (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
+            sleep(ts)
+
+motor_direction = input('Select motor direction a=anticlockwise, c=clockwise: ')
+while True:
+    try:
+        if motor_direction == 'c':
+            print('Motor running clockwise\n')
+            rotate_motor('c', 360)  # Rotate 360 degrees clockwise
+        elif motor_direction == 'a':
+            print('Motor running anticlockwise\n')
+            rotate_motor('a', 360)  # Rotate 360 degrees anticlockwise
+
+        # press ctrl+c for keyboard interrupt
+    except KeyboardInterrupt:
+        # query for setting motor direction or exit
+        motor_direction = input('Select motor direction a=anticlockwise, c=clockwise or q=exit: ')
+        # check for exit
+        if motor_direction == 'q':
+            print('Motor stopped')
+            sys.exit(0)

@@ -11,7 +11,10 @@ PwmA = 16 #red DirA
 DirB = 21 #green PwmB
 PwmB = 20 #black DirB
 
-ts = 0.001 #smoothest tested
+StepsPerRotation = 200 #360/1.8
+RPM = 10
+#ts = 0.001 #smoothest tested
+ts = int(60/RPM*StepsPerRotation)
 
 #assign GPIO pins for motor
 motor_channel = (DirA, PwmA, DirB, PwmB)  

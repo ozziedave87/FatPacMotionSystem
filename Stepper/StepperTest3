@@ -6,34 +6,12 @@ import RPi.GPIO as GPIO
 from time import sleep
 import sys
 
+DirA = 12 #blue PwmA
+PwmA = 16 #red DirA
+DirB = 21 #green PwmB
+PwmB = 20 #black DirB
 
-
-
-#jitters
-#DirA = 16 
-#PwmA = 12
-#DirB = 21
-#PwmB = 20
-
-#jitters yet: black green blue reda
-DirA = 12 
-PwmA = 16
-DirB = 21
-PwmB = 20
-
-#jitters best yet: black green blue red
-#DirA = 16 
-#PwmA = 12
-#DirB = 20
-#PwmB = 21
-
-#jitters CCW
-#DirA = 12 
-#PwmA = 16
-#DirB = 20
-#PwmB = 21
-
-ts = 0.001
+ts = 0.001 #smoothest tested
 
 #assign GPIO pins for motor
 motor_channel = (DirA, PwmA, DirB, PwmB)  

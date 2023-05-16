@@ -28,82 +28,82 @@ class bipolarStepper():
         self.RPM = RPM
         self.stepsPerRotation = stepsPerRotation
 
-    def setRPM(self, RPM):
-        self.stepDelay_ms = int(60000 / (RPM * self.stepsPerRotation))
+def setRPM(self, RPM):
+    self.stepDelay_ms = int(60000 / (RPM * self.stepsPerRotation))
 
-    def setHome(self):
-        self.steps = 0
+def setHome(self):
+    self.steps = 0
 
-    def returnHome(self):
-        while self.steps > 0:
+def returnHome(self):
+    while self.steps > 0:
+        self.backwardStep()
+        time.sleep(self.stepDelay_ms / 1000)
+    while self.steps < 0:
+        self.forwardStep()
+        time.sleep(self.stepDelay_ms / 1000)
+
+def getSteps(self):
+    return self.steps
+
+def getAngle(self):
+    return self.steps % self.stepsPerRotation / self.stepsPerRotation * 360
+
+def forwardStep(self):
+    if self.next == "A":
+        if GPIO.input(self.dirA) == GPIO.HIGH:
+            GPIO.output(self.dirA, GPIO.LOW)
+        else:
+            GPIO.output(self.dirA, GPIO.HIGH)
+        self.next = "B"
+    else:
+        if GPIO.input(self.dirB) == GPIO.HIGH:
+            GPIO.output(self.dirB, GPIO.LOW)
+        else:
+            GPIO.output(self.dirB, GPIO.HIGH)
+        self.next = "A"
+    self.steps += 1
+
+def backwardStep(self):
+    if self.next == "A":
+        if GPIO.input(self.dirB) == GPIO.HIGH:
+            GPIO.output(self.dirB, GPIO.LOW)
+        else:
+            GPIO.output(self.dirB, GPIO.HIGH)
+        self.next = "B"
+    else:
+        if GPIO.input(self.dirA) == GPIO.HIGH:
+            GPIO.output(self.dirA, GPIO.LOW)
+        else:
+            GPIO.output(self.dirA, GPIO.HIGH)
+        self.next = "A"
+    self.steps -= 1
+
+def rotate(self, steps=0, angle=None):
+    if angle is not None:
+        steps = round(angle / 360.0 * self.stepsPerRotation)
+
+    if steps < 0:
+        while steps < 0:
             self.backwardStep()
+            steps += 1
             time.sleep(self.stepDelay_ms / 1000)
-        while self.steps < 0:
+    else:
+        while steps > 0:
             self.forwardStep()
+            steps -= 1
             time.sleep(self.stepDelay_ms / 1000)
-
-    def getSteps(self):
-        return self.steps
-
-    def getAngle(self):
-        return self.steps % self.stepsPerRotation / self.stepsPerRotation * 360
-
-    def forwardStep(self):
-        if self.next == "A":
-            if GPIO.input(self.dirA) == GPIO.HIGH:
-                GPIO.output(self.dirA, GPIO.LOW)
-            else:
-                GPIO.output(self.dirA, GPIO.HIGH)
-            self.next = "B"
-        else:
-            if GPIO.input(self.dirB) == GPIO.HIGH:
-                GPIO.output(self.dirB, GPIO.LOW)
-            else:
-                GPIO.output(self.dirB, GPIO.HIGH)
-            self.next = "A"
-        self.steps += 1
-
-    def backwardStep(self):
-        if self.next == "A":
-            if GPIO.input(self.dirB) == GPIO.HIGH:
-                GPIO.output(self.dirB, GPIO.LOW)
-            else:
-                GPIO.output(self.dirB, GPIO.HIGH)
-            self.next = "B"
-        else:
-            if GPIO.input(self.dirA) == GPIO.HIGH:
-                GPIO.output(self.dirA, GPIO.LOW)
-            else:
-                GPIO.output(self.dirA, GPIO.HIGH)
-            self.next = "A"
-        self.steps -= 1
-
-    def rotate(self, steps=0, angle=None):
-        if angle is not None:
-            steps = round(angle / 360.0 * self.stepsPerRotation)
-
-        if steps < 0:
-            while steps < 0:
-                self.backwardStep()
-                steps += 1
-                time.sleep(self.stepDelay_ms / 1000)
-        else:
-            while steps > 0:
-                self.forwardStep()
-                steps -= 1
-                time.sleep(self.stepDelay_ms / 1000)
 
 
 if __name__ == "__main__":
      
     # Pin Definitions
-    pwmPinA = 2
-    dirPinA = 3
-    pwmPinB = 4
-    dirPinB = 5
+    pwmPinA = 12
+    dirPinA = 16
+    pwmPinB = 20
+    dirPinB = 21
 
     # Create an instance of bipolarStepper
-    stepper = bipolarStepper(pwmPinA, dirPinA, pwmPinB, dirPinB)
+    stepper = bipolarStepper(pwmPinA, dirPinA, pwmPinB, dirPinB,10,200)
 
     try:
         # Set motor speed and rotation

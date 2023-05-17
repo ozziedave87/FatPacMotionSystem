@@ -1,14 +1,15 @@
-#create motor drive module for dc motors with PWM and direction control using two pins on the pi
-# with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel https://core-electronics.com.au/makerverse-motor-driver-2-channel.html)
-
-
+#motor drive module for dc motors with PWM and direction control using two pins on the pi
+# with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel 
+#https://core-electronics.com.au/makerverse-motor-driver-2-channel.html)
 
 #Import and setup GPIO
 import RPi.GPIO as GPIO
 from time import sleep
 
+#set pin numbering to BCM
 GPIO.setmode(GPIO.BCM)
 
+#Create motor class
 class motor:
     def __init__(self, dir_pin, pwm_pin):
         self.dir_pin = dir_pin
@@ -19,26 +20,31 @@ class motor:
         self.pwm.start(0)
         self.dir = 0
         self.speed = 0
-
+    #set direction
     def set_dir(self, dir):
         self.dir = dir
         GPIO.output(self.dir_pin, self.dir)
 
+    #set speed
     def set_speed(self, speed):
         self.speed = speed
         self.pwm.ChangeDutyCycle(self.speed)
 
+    #set stop
     def stop(self):
         self.set_speed(0)
 
+    #drive forward
     def forward(self, speed):
         self.set_dir(0)
         self.set_speed(speed)
 
+    #drive in reverse
     def reverse(self, speed):
         self.set_dir(1)
         self.set_speed(speed)
 
+    #destructor
     def __del__(self):
         self.pwm.stop()
         GPIO.cleanup()

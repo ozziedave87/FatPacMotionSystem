@@ -55,5 +55,11 @@ class StepperMotor:
                     break
 
 # Usage example:
-motor = StepperMotor(dirA=12, pwmA=16, dirB=21, pwmB=20)
-motor.rotate(rpm=600, rotation=180)
+if __name__ == '__main__':
+    try:
+        motor = StepperMotor(dirA=12, pwmA=16, dirB=21, pwmB=20)
+        motor.rotate(rpm=600, rotation=180)
+    except KeyboardInterrupt:
+        print('Motor stopped')
+
+        

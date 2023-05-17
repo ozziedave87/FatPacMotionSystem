@@ -21,7 +21,7 @@ class stepperMotor:
         motor_channel = (DirA, PwmA, DirB, PwmB)
         GPIO.setup(motor_channel, GPIO.OUT)
 
-    def set_RPM(self, rpm):
+    def set_RPM(self, rpm=10):
         self.rpm = rpm
         self.ts = (60/(self.rpm*200))
 #            return ts
@@ -50,7 +50,7 @@ class stepperMotor:
 if __name__ == "__main__":
     try:
         while True:
-            clockwise()
+            stepperMotor.clockwise([12, 16, 21, 20],10)
 
     except KeyboardInterrupt:
         print('motor stopped')

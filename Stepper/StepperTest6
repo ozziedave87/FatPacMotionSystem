@@ -15,8 +15,23 @@ class StepperMotor:
     def set_direction(self, direction):
         if direction == 'clockwise':
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
+            sleep(ts)
         elif direction == 'anticlockwise':
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
+            sleep(ts)
+            GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
+            sleep(ts)
+            
         else:
             raise ValueError("Invalid direction. Must be 'clockwise' or 'anticlockwise'.")
 
@@ -62,4 +77,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('Motor stopped')
 
-        
+

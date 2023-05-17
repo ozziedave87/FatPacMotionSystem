@@ -43,14 +43,14 @@ class StepperMotor:
             try:
                 if motor_direction == 1:
                     print('Motor running clockwise')
-                    self.set_direction('clockwise')
+                    self.set_direction(1)
 
                 elif motor_direction == 0:
                     print('Motor running anticlockwise')
-                    self.set_direction('anticlockwise')
+                    self.set_direction(0)
 
             except KeyboardInterrupt:
-                motor_direction = input("Select motor direction (a=anticlockwise, c=clockwise) or q=exit: ")
+                motor_direction = input("Select motor direction (0=anticlockwise, 1=clockwise) or q=exit: ")
                 if motor_direction == 'q':
                     print('Motor stopped')
                     break

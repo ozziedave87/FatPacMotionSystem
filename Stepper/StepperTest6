@@ -45,23 +45,11 @@ class StepperMotor:
                 if motor_direction == 'c':
                     print('Motor running clockwise')
                     self.set_direction('clockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('anticlockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('anticlockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('clockwise')
-                    sleep(self.ts)
+
                 elif motor_direction == 'a':
                     print('Motor running anticlockwise')
                     self.set_direction('anticlockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('anticlockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('clockwise')
-                    # sleep(self.ts)
-                    # self.set_direction('clockwise')
-                    sleep(self.ts)
+
             except KeyboardInterrupt:
                 motor_direction = input("Select motor direction (a=anticlockwise, c=clockwise) or q=exit: ")
                 if motor_direction == 'q':

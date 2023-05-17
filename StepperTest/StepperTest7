@@ -59,6 +59,6 @@ class StepperMotor:
 if __name__ == '__main__':
     try:
         motor = StepperMotor(dirA=12, pwmA=16, dirB=21, pwmB=20)
-        motor.rotate(dir = 1, rpm=600, rotation=180)
+        motor.rotate(dir = 1, rpm=600, rotation=720)
     except KeyboardInterrupt:
         print('Motor stopped')

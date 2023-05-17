@@ -51,9 +51,6 @@ class StepperMotor:
         steps = int(rotation / (1.8 * 4))
         motor_direction = dir
 
-    #destructor
-    def __del__(self):
-        GPIO.cleanup()
 
 #create loop that runs stepper for numbers of steps calculated by rotation input
         for _ in range(steps):

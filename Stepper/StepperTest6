@@ -15,28 +15,27 @@ class StepperMotor:
     def set_direction(self, direction):
         if direction == 'clockwise':
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
-            sleep(ts)
+            sleep(self.ts)
         elif direction == 'anticlockwise':
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.LOW, GPIO.HIGH, GPIO.HIGH))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW))
-            sleep(ts)
+            sleep(self.ts)
             GPIO.output((self.dirA, self.pwmA, self.dirB, self.pwmB), (GPIO.HIGH, GPIO.HIGH, GPIO.LOW, GPIO.LOW))
-            sleep(ts)
-            
+            sleep(self.ts)
         else:
             raise ValueError("Invalid direction. Must be 'clockwise' or 'anticlockwise'.")
 
     def rotate(self, rpm, rotation):
-        ts = 3600 / (rpm * self.stepsPerRotation)
+        self.ts = 3600 / (rpm * self.stepsPerRotation)
         steps = int(rotation / (1.8 * 4))
 
         motor_direction = input('Select motor direction (a=anticlockwise, c=clockwise): ')
@@ -46,23 +45,23 @@ class StepperMotor:
                 if motor_direction == 'c':
                     print('Motor running clockwise')
                     self.set_direction('clockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('anticlockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('anticlockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('clockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                 elif motor_direction == 'a':
                     print('Motor running anticlockwise')
                     self.set_direction('anticlockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('anticlockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('clockwise')
-                    sleep(ts)
+                    sleep(self.ts)
                     self.set_direction('clockwise')
-                    sleep(ts)
+                    sleep(self.ts)
             except KeyboardInterrupt:
                 motor_direction = input("Select motor direction (a=anticlockwise, c=clockwise) or q=exit: ")
                 if motor_direction == 'q':
@@ -76,5 +75,3 @@ if __name__ == '__main__':
         motor.rotate(rpm=600, rotation=180)
     except KeyboardInterrupt:
         print('Motor stopped')
-
-

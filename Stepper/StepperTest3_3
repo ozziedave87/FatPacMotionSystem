@@ -50,7 +50,7 @@ class stepperMotor:
 if __name__ == "__main__":
     try:
         while True:
-            clockwise()
+            stepperMotor.clockwise(10)
 
     except KeyboardInterrupt:
         print('motor stopped')

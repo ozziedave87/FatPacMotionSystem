@@ -1,0 +1,61 @@
+#create stepper drive module with PWM, direction and angle of rotation control using four pins on the pi
+# with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel https://core-electronics.com.au/makerverse-motor-driver-2-channel.html)
+
+#Source: Stepper Motor interfacing with Raspberry Pi http:///www.electronicwings.com
+
+#imports
+import RPi.GPIO as GPIO
+from time import sleep
+import sys
+
+#define pins
+GPIO.setmode(GPIO.BCM)
+
+DirA = 12 #blue PwmA
+PwmA = 16 #red DirA
+DirB = 21 #green PwmB
+PwmB = 20 #black DirB
+
+class stepperMotor:
+    def __init__(self,DirA=12, PwmA=16,DirB=21,PwmB=20):
+        motor_channel = (DirA, PwmA, DirB, PwmB)
+        GPIO.setup(motor_channel, GPIO.OUT)
+
+        def set_RPM(self, rpm):
+            self.rpm = rpm
+            self.ts = (60/(self.rpm*200))
+#            return ts
+
+        def clockwise(self, rpm):
+            GPIO.output(motor_channel, (GPIO.HIGH,GPIO.LOW,GPIO.LOW,GPIO.HIGH))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.HIGH,GPIO.HIGH,GPIO.LOW,GPIO.LOW))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.LOW,GPIO.HIGH,GPIO.HIGH,GPIO.LOW))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.LOW,GPIO.LOW,GPIO.HIGH,GPIO.HIGH))
+            sleep(self.ts)
+
+        def anticlockwise(self, rpm):
+            GPIO.output(motor_channel, (GPIO.HIGH,GPIO.LOW,GPIO.LOW,GPIO.HIGH))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.LOW,GPIO.LOW,GPIO.HIGH,GPIO.HIGH))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.LOW,GPIO.HIGH,GPIO.HIGH,GPIO.LOW))
+            sleep(self.ts)
+            GPIO.output(motor_channel, (GPIO.HIGH,GPIO.HIGH,GPIO.LOW,GPIO.LOW))
+            sleep(self.ts)
+
+
+if __name__ == "__main__":
+    try:
+        while True:
+            clockwise()
+
+    except KeyboardInterrupt:
+        print('motor stopped')
+        sys.exit(0) #exit cleanly   
+
+
+
+

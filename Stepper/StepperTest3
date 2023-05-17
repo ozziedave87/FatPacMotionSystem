@@ -6,15 +6,22 @@ import RPi.GPIO as GPIO
 from time import sleep
 import sys
 
+#B+ = black
+#B- = green
+#A- = red
+#A+ = blue
+
 DirA = 12 #blue PwmA
 PwmA = 16 #red DirA
 DirB = 21 #green PwmB
 PwmB = 20 #black DirB
 
 StepsPerRotation = 200 #360/1.8
-RPM = 10
-#ts = 0.001 #smoothest tested
-ts = int(60/RPM*StepsPerRotation)
+RPM = 600
+ts = 3600/(RPM*StepsPerRotation)
+#ts = 0.000833 #smoothest tested 360rpm
+#ts = 3.6 #5rpm
+
 
 #assign GPIO pins for motor
 motor_channel = (DirA, PwmA, DirB, PwmB)  
@@ -47,6 +54,7 @@ while True:
             sleep(ts)
             GPIO.output(motor_channel, (GPIO.HIGH,GPIO.HIGH,GPIO.LOW,GPIO.LOW))
             sleep(ts)
+
 
             
     #press ctrl+c for keyboard interrupt

@@ -138,6 +138,7 @@ def saucing():
         except:
             saucing_state = 0
             print('error - something has gone wrong with saucing')
+        return saucing_state
     else:
         saucing_state = 0
         print('error - no pizza base has been detected in the sauce bay')

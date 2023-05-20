@@ -56,14 +56,14 @@ ConveyorDir_Pin = 10
 ConveyorPWM_Pin = 9
 
 #initialise conveyor motor
-Conveyor = motor(ConveyorDir_Pin, ConveyorPWM_Pin)
+Conveyor = motor.motor(ConveyorDir_Pin, ConveyorPWM_Pin)
 
 ################################ Ram Set up ###################################
 RamPWM_Pin = 1
 RamDir_Pin = 22
 
 #initialise ram motor
-Ram = motor(RamDir_Pin, RamPWM_Pin)
+Ram = motor.motor(RamDir_Pin, RamPWM_Pin)
 
 RamUp_state = GPIO.input(LSUp_Pin) #limit switch - read and store value of input to a variable
 RamDown_state = GPIO.input(LSDown_Pin) #limit switch - read and store value of input to a variable

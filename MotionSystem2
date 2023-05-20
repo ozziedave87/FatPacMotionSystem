@@ -78,9 +78,9 @@ SpinnerPWMB_Pin = 22
 Spinner = stepper.StepperMotor(SpinnerDirA_Pin, SpinnerPWMA_Pin, SpinnerDirB_Pin, SpinnerPWMB_Pin)
 
 ############################### Global Variables #################################
-#motionInit_state = None
-#saucing_state = None
-#topping_state = None
+motionInit_state = None
+saucing_state = None
+topping_state = None
 
 
 #ram up function

@@ -125,7 +125,7 @@ def motionInit():
 
 #create function for saucing
 def saucing():
-    global saucing_state = 0 #init state for saucing
+#    global saucing_state = 0 #init state for saucing
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -144,6 +144,7 @@ def saucing():
 
 #fucntion to transition between sauce and topping bay
 def baseToTopping():
+    saucing_state = 1 #for testing purposes
     if saucing_state == 1:
         try:
             while toppingBay_state == 0:

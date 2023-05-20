@@ -9,6 +9,7 @@ import stepper
 
 #set pin numbering to BCM
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 ############################### Sensor Set up #################################
 #set up break beams

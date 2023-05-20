@@ -1,6 +1,7 @@
 #motor drive module for dc motors with PWM and direction control using two pins on the pi
-# with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel 
+#with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel 
 #https://core-electronics.com.au/makerverse-motor-driver-2-channel.html)
+# David Keevers n10960317 EGH419
 
 #Import and setup GPIO
 import RPi.GPIO as GPIO

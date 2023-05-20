@@ -1,8 +1,8 @@
 #Stepper motor control module control using four pins on the pi
 # with TC78H660FTG motor driver (Makerverse Motor Driver 2 Channel 
 #https://core-electronics.com.au/makerverse-motor-driver-2-channel.html)
-
 #code adapted from http:///www.electronicwings.com
+# David Keevers n10960317 EGH419
 
 #imports
 import RPi.GPIO as GPIO

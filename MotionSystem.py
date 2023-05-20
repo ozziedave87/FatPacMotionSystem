@@ -126,7 +126,7 @@ def motionInit():
 
 #create function for saucing
 def saucing():
-    saucing_state = None #init for start up
+    saucing_state = 0 #init for start up
     if sauceBay_state == 1:
         try:
             ramUp()

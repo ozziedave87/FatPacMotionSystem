@@ -140,6 +140,7 @@ def saucing():
     else:
         saucing_state = 0 #saucing incomplete
         print('error - no pizza base has been detected in the sauce bay')
+        saucing_sate = 0
     return saucing_state
 
 #fucntion to transition between sauce and topping bay
@@ -160,17 +161,15 @@ def baseToTopping():
         saucing_state = 1
     return saucing_state
 
-
 #create function for finishing
-def pizzaFinish():
-    if toppingBay_state == 1 and sauceBay_state == 0:
-    #\toppingBay_state ==1 and sauceBay_state == 1 and saucing_state == 1: #can make condition for multi pizza throughput
-        try:
-            while toppingBay_state == 1:
-                Conveyor.forward(100)
-                print('pizza is ready for baking')
-        except:
-            print('error - something has gone wrong with finishing the pizza')
+#conditional on QC
+def pizzaUnload(): 
+    try:
+        while toppingBay_state == 1:
+            Conveyor.forward(100)
+            print('pizza is ready for baking')
+    except:
+        print('error - something has gone wrong with finishing the pizza')
     else:
         print('error - no pizza has been detected in the topping bay or sauce bay is full')
 
@@ -189,7 +188,7 @@ if __name__ == "__main__":
         baseToTopping()
         sleep(1)
         print('pizza finish')
-        pizzaFinish()
+        pizzaUnload()
         sleep(1)
 
     except KeyboardInterrupt:   # If CTRL+C is pressed, exit cleanly:

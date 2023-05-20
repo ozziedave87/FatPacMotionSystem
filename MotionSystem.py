@@ -151,27 +151,31 @@ def baseToTopping():
             while toppingBay_state == 0:
                 Conveyor.forward(100)
                 print('base going to topping bay')
+
             #reset saucing bay and state
             ramHome()
             saucing_state = 0
         except:
+            saucing_state = 1
             print('error - check topping bay for obstructions') #or another pizza is being topped
     else:
         print('error - saucing not complete')
+        saucing_state = 1
     return saucing_state
+
 
 #create function for finishing
 def pizzaFinish():
-    if toppingBay_state == 1:
-        if sauceBay_state == 0 or sauceBay_state == 1 and saucing_state == 1:
-            try:
-                while toppingBay_state == 1:
-                    Conveyor.forward(100)
-                    print('pizza is ready for baking')
-            except:
-                print('error - something has gone wrong with finishing the pizza')
+    if toppingBay_state == 1 and sauceBay_state == 0:
+    #\toppingBay_state ==1 and sauceBay_state == 1 and saucing_state == 1: #can make condition for multi pizza throughput
+        try:
+            while toppingBay_state == 1:
+                Conveyor.forward(100)
+                print('pizza is ready for baking')
+        except:
+            print('error - something has gone wrong with finishing the pizza')
     else:
-        print('error - no pizza has been detected in the topping bay')
+        print('error - no pizza has been detected in the topping bay or sauce bay is full')
 
 ###################################################################################
 ################################ Subsystem testing ################################

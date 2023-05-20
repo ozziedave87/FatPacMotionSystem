@@ -26,19 +26,17 @@ toppingBay_state = None
 
 #function for break beam for ram positioning
 def sauce_callback(channel):
+    global sauceBay_state
     if GPIO.input(BBSauce_Pin):
-        #print("beam unbroken")
         sauceBay_state = 0         #false
     else:
-        #print("beam broken")
         sauceBay_state = 1         #true
 
 def topping_callback(channel):
+    global toppingBay_state
     if GPIO.input(BBTopping_Pin):
-        #print("beam unbroken")
         toppingBay_state = 0         #false
     else:
-        #print("beam broken")
         toppingBay_state = 1         #true
         
 #start break beams
@@ -67,10 +65,8 @@ RamDir_Pin = 22
 Ram = motor.motor(RamDir_Pin, RamPWM_Pin)
 
 #initialise ram states
-#RamUp_state = None
-#RamDown_state = None
-RamUp_state = GPIO.input(LSUp_Pin) #limit switch - read and store value of input to a variable
-RamDown_state = GPIO.input(LSDown_Pin) #limit switch - read and store value of input to a variable
+RamUp_state = None
+RamDown_state = None
 
 ############################### Stepper Set up #################################
 SpinnerDirA_Pin = 15
@@ -82,13 +78,14 @@ SpinnerPWMB_Pin = 22
 Spinner = stepper.StepperMotor(SpinnerDirA_Pin, SpinnerPWMA_Pin, SpinnerDirB_Pin, SpinnerPWMB_Pin)
 
 ############################### Global Variables #################################
-global motionInit_state
-global saucing_state
-global topping_state
+#motionInit_state = None
+#saucing_state = None
+#topping_state = None
 
 
 #ram up function
 def ramUp():
+    global RamUp_state
     if RamUp_state == 0:
         while RamUp_state == 0:
             Ram.forward(100)
@@ -100,6 +97,7 @@ def ramUp():
 
 #ram down function
 def ramDown():
+    global RamDown_state
     if RamDown_state == 0:
         while RamDown_state == 0:
             Ram.reverse(100)
@@ -116,22 +114,22 @@ def ramHome():
     sleep(2) #time for ram to reach home position
     Ram.stop()
 
-#create initialization function for startup - ensure fatpac is in a safe operaitonal state
+#create initialization function for startup - ensure fatpac is in a safe operational state
 def motionInit():
-#    motionInit_state = None #init state for start up
+    global motionInit_state
     #check bay is clear
-    if sauceBay_state and toppingBay_state == 0:
+    if sauceBay_state == 0 and toppingBay_state == 0:
         ramHome()
         motionInit_state = 1 #intialization complete
         print('bays are clear and FatPac is ready to make a pizza')
-    elif sauceBay_state or toppingBay_state == 1:
+    elif sauceBay_state == 1 or toppingBay_state == 1:
         motionInit_state = 0 #initialization incomplete
         print('FatPac is not ready to make a pizza - check bays for obstructions')
     return motionInit_state
 
 #create function for saucing
 def saucing():
-#    saucing_state = 0 #init state for saucing
+    global saucing_state
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -150,7 +148,7 @@ def saucing():
 
 #fucntion to transition between sauce and topping bay
 def baseToTopping():
-#    saucing_state = 1 #for testing purposes
+    global saucing_state
     if saucing_state == 1:
         try:
             while toppingBay_state == 0:

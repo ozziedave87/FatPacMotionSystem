@@ -125,7 +125,7 @@ def motionInit():
 
 #create function for saucing
 def saucing():
-    saucing_state = 0 #init state for saucing
+    global saucing_state = 0 #init state for saucing
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -135,10 +135,10 @@ def saucing():
             ramDown()
             saucing_state = 1 #saucing complete
         except:
-            #saucing_state = 0 #saucing incomplete
+            saucing_state = 0 #saucing incomplete
             print('error - something has gone wrong with saucing')
     else:
-        #saucing_state = 0 #saucing incomplete
+        saucing_state = 0 #saucing incomplete
         print('error - no pizza base has been detected in the sauce bay')
     return saucing_state
 

@@ -66,12 +66,11 @@ RamDir_Pin = 22
 #initialise ram motor
 Ram = motor.motor(RamDir_Pin, RamPWM_Pin)
 
+#initialise ram states
+#RamUp_state = None
+#RamDown_state = None
 RamUp_state = GPIO.input(LSUp_Pin) #limit switch - read and store value of input to a variable
 RamDown_state = GPIO.input(LSDown_Pin) #limit switch - read and store value of input to a variable
-
-#initialise ram states
-RamUp_state = None
-RamDown_state = None
 
 ############################### Stepper Set up #################################
 SpinnerDirA_Pin = 15
@@ -114,6 +113,7 @@ def ramHome():
 #create initialization function for startup - ensure fatpac is in a safe operaitonal state
 def motionInit():
     motionInit_state = None #init for start up
+    saucing_state = 0 #init for start up
     #check bay is clear
     if sauceBay_state and toppingBay_state == 0:
         ramHome()
@@ -122,11 +122,10 @@ def motionInit():
     elif sauceBay_state or toppingBay_state == 1:
         motionInit_state = 0
         print('FatPac is not ready to make a pizza - check bays for obstructions')
-    return motionInit_state
+    return motionInit_state, saucing_state
 
 #create function for saucing
 def saucing():
-    saucing_state = 0 #init for start up
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -138,7 +137,6 @@ def saucing():
         except:
             saucing_state = 0
             print('error - something has gone wrong with saucing')
-        return saucing_state
     else:
         saucing_state = 0
         print('error - no pizza base has been detected in the sauce bay')
@@ -151,7 +149,6 @@ def baseToTopping():
             while toppingBay_state == 0:
                 Conveyor.forward(100)
                 print('base going to topping bay')
-
             #reset saucing bay and state
             ramHome()
             saucing_state = 0

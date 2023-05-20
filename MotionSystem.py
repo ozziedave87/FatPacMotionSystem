@@ -125,7 +125,7 @@ def motionInit():
 
 #create function for saucing
 def saucing():
-    saucing_state = None #init state for saucing
+#    saucing_state = None #init state for saucing
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -140,7 +140,6 @@ def saucing():
     else:
         saucing_state = 0 #saucing incomplete
         print('error - no pizza base has been detected in the sauce bay')
-        saucing_sate = 0
     return saucing_state
 
 #fucntion to transition between sauce and topping bay

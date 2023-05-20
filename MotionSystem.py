@@ -20,30 +20,30 @@ BBTopping_Pin = 3
 GPIO.setup(BBSauce_Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
 GPIO.setup(BBTopping_Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+#initialise break beam states
+sauceBay_state = None
+toppingBay_state = None
+
 #function for break beam for ram positioning
 def sauce_callback(channel):
     if GPIO.input(BBSauce_Pin):
         #print("beam unbroken")
-        sauce_state = 0         #false
+        sauceBay_state = 0         #false
     else:
         #print("beam broken")
-        sauce_state = 1         #true
+        sauceBay_state = 1         #true
 
 def topping_callback(channel):
     if GPIO.input(BBTopping_Pin):
         #print("beam unbroken")
-        topping_state = 0         #false
+        toppingBay_state = 0         #false
     else:
         #print("beam broken")
-        topping_state = 1         #true
+        toppingBay_state = 1         #true
         
 #start break beams
 GPIO.add_event_detect(BBSauce_Pin, GPIO.BOTH, callback=sauce_callback) 
 GPIO.add_event_detect(BBTopping_Pin, GPIO.BOTH, callback=topping_callback) 
-
-#initialise break beam states
-sauceBay_state = None
-toppingBay_state = None
 
 #set up limit switches
 LSUp_Pin = 4
@@ -112,20 +112,20 @@ def ramHome():
 
 #create initialization function for startup - ensure fatpac is in a safe operaitonal state
 def motionInit():
-    motionInit_state = None #init for start up
-    saucing_state = 0 #init for start up
+    motionInit_state = None #init state for start up
     #check bay is clear
     if sauceBay_state and toppingBay_state == 0:
         ramHome()
-        motionInit_state = 1
+        motionInit_state = 1 #intialization complete
         print('bays are clear and FatPac is ready to make a pizza')
     elif sauceBay_state or toppingBay_state == 1:
-        motionInit_state = 0
+        motionInit_state = 0 #initialization incomplete
         print('FatPac is not ready to make a pizza - check bays for obstructions')
-    return motionInit_state, saucing_state
+    return motionInit_state
 
 #create function for saucing
 def saucing():
+    saucing_state = None #init state for saucing
     if sauceBay_state == 1:
         try:
             ramUp()
@@ -133,12 +133,12 @@ def saucing():
             Spinner.rotate(1, 600, 540) #direction, rpm, rotation
             sleep(0.5) #time for sauce to settle
             ramDown()
-            saucing_state = 1
+            saucing_state = 1 #saucing complete
         except:
-            saucing_state = 0
+            saucing_state = 0 #saucing incomplete
             print('error - something has gone wrong with saucing')
     else:
-        saucing_state = 0
+        saucing_state = 0 #saucing incomplete
         print('error - no pizza base has been detected in the sauce bay')
     return saucing_state
 

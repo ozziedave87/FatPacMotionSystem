@@ -77,11 +77,10 @@ SpinnerPWMB_Pin = 22
 #initialise stepper motor
 Spinner = stepper.StepperMotor(SpinnerDirA_Pin, SpinnerPWMA_Pin, SpinnerDirB_Pin, SpinnerPWMB_Pin)
 
-############################### Global Variables #################################
+############################### Control Variables #################################
 motionInit_state = None
 saucing_state = None
 topping_state = None
-
 
 #ram up function
 def ramUp():
@@ -165,17 +164,15 @@ def baseToTopping():
         saucing_state = 1
     return saucing_state
 
-#create function for finishing
+#create function to unload pizza from FatPac
 #conditional on QC
 def pizzaUnload(): 
     try:
-        while toppingBay_state == 1:
+        while toppingBay_state == 1 and sauceBay_state == 0: #add extra condition for multipizza throughput
             Conveyor.forward(100)
             print('pizza is ready for baking')
     except:
         print('error - something has gone wrong with finishing the pizza')
-    else:
-        print('error - no pizza has been detected in the topping bay or sauce bay is full')
 
 ###################################################################################
 ################################ Subsystem testing ################################

@@ -113,15 +113,17 @@ def ramHome():
 #create initialization function for startup - ensure fatpac is in a safe operaitonal state
 def motionInit():
     motionInit_state = None #init for start up
+    saucing_state = 0 #init for start up
     #check bay is clear
     if sauceBay_state and toppingBay_state == 0:
         ramHome()
         motionInit_state = 1
-        saucing_state = None #init for start up
         print('bays are clear and FatPac is ready to make a pizza')
     elif sauceBay_state or toppingBay_state == 1:
         motionInit_state = 0
         print('FatPac is not ready to make a pizza - check bays for obstructions')
+    return motionInit_state
+    return saucing_state
 
 #create function for saucing
 def saucing():
@@ -137,6 +139,7 @@ def saucing():
             print('error - something has gone wrong with saucing')
     else:
         print('error - no pizza base has been detected in the sauce bay')
+    return saucing_state
 
 #fucntion to transition between sauce and topping bay
 def baseToTopping():
@@ -152,6 +155,7 @@ def baseToTopping():
             print('error - check topping bay for obstructions') #or another pizza is being topped
     else:
         print('error - saucing not complete')
+    return saucing_state
 
 #create function for finishing
 def pizzaFinish():

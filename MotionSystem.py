@@ -135,12 +135,11 @@ def saucing():
             ramDown()
             saucing_state = 1 #saucing complete
         except:
-            saucing_state = 0 #saucing incomplete
+            #saucing_state = 0 #saucing incomplete
             print('error - something has gone wrong with saucing')
     else:
-        saucing_state = 0 #saucing incomplete
+        #saucing_state = 0 #saucing incomplete
         print('error - no pizza base has been detected in the sauce bay')
-    print(saucing_state)
     return saucing_state
 
 #fucntion to transition between sauce and topping bay

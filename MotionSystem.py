@@ -113,7 +113,6 @@ def ramHome():
 #create initialization function for startup - ensure fatpac is in a safe operaitonal state
 def motionInit():
     motionInit_state = None #init for start up
-    saucing_state = None #init for start up
     #check bay is clear
     if sauceBay_state and toppingBay_state == 0:
         ramHome()
@@ -123,10 +122,10 @@ def motionInit():
         motionInit_state = 0
         print('FatPac is not ready to make a pizza - check bays for obstructions')
     return motionInit_state
-    return saucing_state
 
 #create function for saucing
 def saucing():
+    saucing_state = None #init for start up
     if sauceBay_state == 1:
         try:
             ramUp()

@@ -51,7 +51,6 @@ class StepperMotor:
         steps = int(rotation / (1.8 * 4))
         motor_direction = dir
 
-
 #create loop that runs stepper for numbers of steps calculated by rotation input
         for _ in range(steps):
             try:
@@ -70,14 +69,11 @@ class StepperMotor:
                     print('Motor stopped')
                     break
 
-            
-
-
 # Usage example:
 if __name__ == '__main__':
     try:
         motor = StepperMotor(dirA=12, pwmA=16, dirB=21, pwmB=20)
-        motor.rotate(dir = 1, rpm=600, rotation=180)
+        motor.rotate(dir = 1, rpm=600, rotation=540)
     except KeyboardInterrupt:
         print('Motor stopped')
     finally:

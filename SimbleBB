@@ -2,11 +2,12 @@ import RPi.GPIO as GPIO
 #set pin numbering to BCM
 GPIO.setmode(GPIO.BCM)
 
-BEAM_PIN = 4
+BEAM_PIN = 2
 
 def break_beam_callback(channel):
     if GPIO.input(BEAM_PIN):
         print("beam unbroken")
+        print('working')
     else:
         print("beam broken")
 

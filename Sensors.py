@@ -65,7 +65,7 @@ def Bay1BB_callback(channel):
         Bay1BB_state = 1         #true
     return Bay1BB_state
 
-function to detect if pizza is in Bay 2
+#function to detect if pizza is in Bay 2
 def Bay2BB_callback(channel):
     if GPIO.input(Bay2BB_PIN):
         print("beam unbroken")
@@ -88,10 +88,10 @@ GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for brea
 if __name__=="__main__": 
     try:
        while True:
-          UpLs_sensor()
-          DownLS_sensor()
+          #UpLs_sensor()
+          #DownLS_sensor()
           Bay1BB_callback()
-          #Bay2BB_callback()
+          Bay2BB_callback()
           sleep(0.5)           #Delay of 0.5s
 
     except:

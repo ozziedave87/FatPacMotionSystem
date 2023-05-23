@@ -53,7 +53,7 @@ class motor:
 if __name__ == "__main__":
     try:
         GPIO.setmode(GPIO.BCM)
-        Ram = motor(10, 9)
+        Ram = motor(9, 10)
         Ram.forward(100)
         sleep(2)
         Ram.reverse(100)
@@ -67,8 +67,10 @@ if __name__ == "__main__":
         Conveyor.stop()
         sleep(2)
 
-        Sifter = motor(27, 22)
+        Sifter = motor(22, 27)
         Sifter.forward(100)
+        sleep(2)
+        Sifter.reverse(100)
         sleep(2)
         Sifter.stop()
         sleep(2)

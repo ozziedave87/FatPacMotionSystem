@@ -72,6 +72,7 @@ if __name__ == "__main__":
         sleep(2)
         Sifter.stop()
         sleep(2)
+        #3 motors
 
     except KeyboardInterrupt:   # If CTRL+C is pressed, exit cleanly:
         print("Keyboard interrupt") 

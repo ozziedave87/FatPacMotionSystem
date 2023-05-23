@@ -11,10 +11,10 @@ from time import sleep #VSC wants this specifically, shouldnt be needed
 GPIO.setmode(GPIO.BCM)	 	     	# set the GPIO pin naming convention to BCM
 
 #Set pins and setup
-UpLs_PIN = 2 
-DownLS_PIN = 3
-Bay1BB_PIN = 4 
-Bay2BB_PIN = 14
+UpLs_PIN = 4 
+DownLS_PIN = 14
+Bay1BB_PIN = 2 
+Bay2BB_PIN = 3
 
 GPIO.setup(UpLs_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
 GPIO.setup(DownLS_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors

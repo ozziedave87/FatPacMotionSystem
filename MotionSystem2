@@ -53,15 +53,15 @@ GPIO.setup(LSUp_Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switc
 GPIO.setup(LSDown_Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
 
 ########################### Conveyor Set up ###################################
-ConveyorDir_Pin = 10
-ConveyorPWM_Pin = 9
+ConveyorDir_Pin = 27 #1 
+ConveyorPWM_Pin = 22 #22
 
 #initialise conveyor motor
 Conveyor = motor.motor(ConveyorDir_Pin, ConveyorPWM_Pin)
 
 ################################ Ram Set up ###################################
-RamPWM_Pin = 1
-RamDir_Pin = 22
+RamPWM_Pin = 10
+RamDir_Pin = 9
 
 #initialise ram motor
 Ram = motor.motor(RamDir_Pin, RamPWM_Pin)
@@ -74,7 +74,7 @@ RamDown_state = None
 SpinnerDirA_Pin = 15
 SpinnerPWMA_Pin = 17
 SpinnerDirB_Pin = 18
-SpinnerPWMB_Pin = 22
+SpinnerPWMB_Pin = 1
 
 #initialise stepper motor
 Spinner = stepper.StepperMotor(SpinnerDirA_Pin, SpinnerPWMA_Pin, SpinnerDirB_Pin, SpinnerPWMB_Pin)

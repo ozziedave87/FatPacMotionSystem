@@ -53,13 +53,20 @@ class motor:
 if __name__ == "__main__":
     try:
         GPIO.setmode(GPIO.BCM)
-        motor1 = motor(20, 21)
+        motor1 = motor(10, 9)
         motor1.forward(100)
         sleep(2)
         motor1.reverse(100)
         sleep(2)
         motor1.stop()
         sleep(2)
+
+        motor2 = motor(27, 22)
+        motor2.forward(100)
+        sleep(2)
+        motor2.stop()
+        sleep(2)
+
     except KeyboardInterrupt:   # If CTRL+C is pressed, exit cleanly:
         print("Keyboard interrupt") 
     finally:

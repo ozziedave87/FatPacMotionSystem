@@ -1,4 +1,4 @@
-00#Sources
+#Sources
 #Limit switch: https://electrosome.com/using-switch-raspberry-pi/
 #Break beam: https://simonprickett.dev/using-a-break-beam-sensor-with-python-and-raspberry-pi/
 
@@ -11,15 +11,15 @@ from time import sleep #VSC wants this specifically, shouldnt be needed
 GPIO.setmode(GPIO.BCM)	 	     	# set the GPIO pin naming convention to BCM
 
 #Set pins and setup
-UpLs_PIN = 23 
-DownLS_PIN = 24
-Bay1BB_PIN = 25 
-Bay2BB_PIN = 26
+UpLs_PIN = 2 
+DownLS_PIN = 3
+Bay1BB_PIN = 4 
+Bay2BB_PIN = 14
 
 GPIO.setup(UpLs_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
 GPIO.setup(DownLS_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
 GPIO.setup(Bay1BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor 
-#GPIO.setup(Bay2BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor
+GPIO.setup(Bay2BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor
 
 #function to detect if ram is up
 def UpLs_sensor():
@@ -65,20 +65,20 @@ def Bay1BB_callback(channel):
         Bay1BB_state = 1         #true
     return Bay1BB_state
 
-#function to detect if pizza is in Bay 2
-# Def Bay2BB_callback(channel):
-#     if GPIO.input(Bay2BB_PIN):
-#         print("beam unbroken")
-#         Bay2BB_state = 0         #false
-#     else:
-#         print("beam broken")
-#         Bay2BB_state = 1         #true
-#     return Bay2BB_state
+function to detect if pizza is in Bay 2
+def Bay2BB_callback(channel):
+    if GPIO.input(Bay2BB_PIN):
+        print("beam unbroken")
+        Bay2BB_state = 0         #false
+    else:
+        print("beam broken")
+        Bay2BB_state = 1         #true
+    return Bay2BB_state
 
         
 #start break beams
 GPIO.add_event_detect(Bay1BB_PIN, GPIO.BOTH, callback=Bay1BB_callback) #for breakbeam sensor
-#GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for breakbeam sensor
+GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for breakbeam sensor
 
 ########################################################################################
 ###########-----~~~~~~~~~-----TESTING CODE------~~~~~~~---------########################

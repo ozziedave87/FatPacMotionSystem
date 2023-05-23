@@ -53,19 +53,26 @@ class motor:
 if __name__ == "__main__":
     try:
         GPIO.setmode(GPIO.BCM)
-        motor1 = motor(9, 10)
-        motor1.forward(100)
+        Ram = motor(10, 9)
+        Ram.forward(100)
         sleep(2)
-        motor1.reverse(100)
+        Ram.reverse(100)
         sleep(2)
-        motor1.stop()
+        Ram.stop()
         sleep(2)
 
-        motor2 = motor(27, 22)
-        motor2.forward(100)
+        Conveyor = motor(19, 16)
+        Conveyor.forward(100)
         sleep(2)
-        motor2.stop()
+        Conveyor.stop()
         sleep(2)
+
+        Sifter = motor(27, 22)
+        Sifter.forward(100)
+        sleep(2)
+        Sifter.stop()
+        sleep(2)
+        #3 motors
 
     except KeyboardInterrupt:   # If CTRL+C is pressed, exit cleanly:
         print("Keyboard interrupt") 

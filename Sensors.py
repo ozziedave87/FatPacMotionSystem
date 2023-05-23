@@ -13,13 +13,13 @@ GPIO.setmode(GPIO.BCM)	 	     	# set the GPIO pin naming convention to BCM
 #Set pins and setup
 UpLs_PIN = 4 
 DownLS_PIN = 14
-Bay1BB_PIN = 2 
-Bay2BB_PIN = 3
+# Bay1BB_PIN = 2 
+# Bay2BB_PIN = 3
 
 GPIO.setup(UpLs_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
 GPIO.setup(DownLS_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Set pin for limit switch and enable input and pull up resistors
-GPIO.setup(Bay1BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor 
-GPIO.setup(Bay2BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor
+# GPIO.setup(Bay1BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor 
+# GPIO.setup(Bay2BB_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #set pin for break bream sensor
 
 #function to detect if ram is up
 def UpLs_sensor():
@@ -55,30 +55,30 @@ def DownLS_sensor():
         break
     return DownLS_state
 
-#function to detect if pizza is in Bay 1
-def Bay1BB_callback(channel):
-    if GPIO.input(Bay1BB_PIN):
-        print("beam unbroken")
-        Bay1BB_state = 0         #false
-    else:
-        print("beam broken")
-        Bay1BB_state = 1         #true
-    return Bay1BB_state
+# #function to detect if pizza is in Bay 1
+# def Bay1BB_callback(channel):
+#     if GPIO.input(Bay1BB_PIN):
+#         print("beam unbroken")
+#         Bay1BB_state = 0         #false
+#     else:
+#         print("beam broken")
+#         Bay1BB_state = 1         #true
+#     return Bay1BB_state
 
-#function to detect if pizza is in Bay 2
-def Bay2BB_callback(channel):
-    if GPIO.input(Bay2BB_PIN):
-        print("beam unbroken")
-        Bay2BB_state = 0         #false
-    else:
-        print("beam broken")
-        Bay2BB_state = 1         #true
-    return Bay2BB_state
+# #function to detect if pizza is in Bay 2
+# def Bay2BB_callback(channel):
+#     if GPIO.input(Bay2BB_PIN):
+#         print("beam unbroken")
+#         Bay2BB_state = 0         #false
+#     else:
+#         print("beam broken")
+#         Bay2BB_state = 1         #true
+#     return Bay2BB_state
 
         
-#start break beams
-GPIO.add_event_detect(Bay1BB_PIN, GPIO.BOTH, callback=Bay1BB_callback) #for breakbeam sensor
-GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for breakbeam sensor
+# #start break beams
+# GPIO.add_event_detect(Bay1BB_PIN, GPIO.BOTH, callback=Bay1BB_callback) #for breakbeam sensor
+# GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for breakbeam sensor
 
 ########################################################################################
 ###########-----~~~~~~~~~-----TESTING CODE------~~~~~~~---------########################
@@ -88,10 +88,10 @@ GPIO.add_event_detect(Bay2BB_PIN, GPIO.BOTH, callback=Bay2BB_callback) #for brea
 if __name__=="__main__": 
     try:
        while True:
-          #UpLs_sensor()
-          #DownLS_sensor()
-          Bay1BB_callback()
-          Bay2BB_callback()
+          UpLs_sensor()
+          DownLS_sensor()
+          #Bay1BB_callback()
+          #Bay2BB_callback()
           sleep(0.5)           #Delay of 0.5s
 
     except:

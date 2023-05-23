@@ -1,6 +1,8 @@
 #Motion system for FatPac pizza topping robot
 #David Keevers n10960317 EGH419
 
+#This code is for the motion system of the FatPac pizza topping robot and do not mess with it
+
 #Import and setup GPIO
 import RPi.GPIO as GPIO
 from time import sleep

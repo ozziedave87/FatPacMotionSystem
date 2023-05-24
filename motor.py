@@ -67,13 +67,13 @@ if __name__ == "__main__":
         Conveyor.stop()
         sleep(2)
 
-        Sifter = motor(22, 27)
-        Sifter.forward(100)
-        sleep(2)
-        Sifter.reverse(100)
-        sleep(2)
-        Sifter.stop()
-        sleep(2)
+        # Sifter = motor(22, 27)
+        # Sifter.forward(100)
+        # sleep(2)
+        # Sifter.reverse(100)
+        # sleep(2)
+        # Sifter.stop()
+        # sleep(2)
         #3 motors
 
     except KeyboardInterrupt:   # If CTRL+C is pressed, exit cleanly:

@@ -1,0 +1,45 @@
+import RPi.GPIO as GPIO
+import time
+
+def SetAngle(angle,servo,servopin):
+    # rotates pwm object 'servo' by 'angle' degrees
+    duty = angle / 18 + 2
+    #GPIO.output(servopin,True)
+    servo.ChangeDutyCycle(duty)
+    time.sleep(1)
+    #GPIO.output(servopin,False)
+    servo.ChangeDutyCycle(0)
+    print('rotated', angle, 'degrees')
+
+
+
+servopin = 25
+
+GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(servopin,GPIO.OUT)
+servo = GPIO.PWM(servopin,50)
+print('setup')
+
+servo.start(0)
+time.sleep(1)
+print('started')
+
+
+SetAngle(90,servo,servopin)
+time.sleep(0.5)
+SetAngle(0,servo,servopin)
+time.sleep(0.5)
+SetAngle(90,servo,servopin)
+time.sleep(0.5)
+SetAngle(180,servo,servopin)
+time.sleep(0.5)
+SetAngle(90,servo,servopin)
+
+
+servo.stop()
+GPIO.cleanup()
+print('cleaned up')
+
+
+
